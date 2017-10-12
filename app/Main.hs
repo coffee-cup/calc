@@ -20,7 +20,7 @@ main :: IO ()
 main = runInputT defaultSettings loop
       where
         loop = do
-          minput <- getInputLine "repl> "
+          minput <- getInputLine "calc> "
           case minput of
             Nothing -> outputStrLn "Goodbye."
             Just input -> liftIO (process input) >> loop
