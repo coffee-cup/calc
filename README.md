@@ -8,7 +8,9 @@ A simple interpreter for arithmetic expressions. Implemented as
 ```
 stack build
 stack exec calc
+```
 
+```
 calc> -(4 * -.2^2) * 100
 -16.00
 ```
