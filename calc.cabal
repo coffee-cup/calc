@@ -16,26 +16,32 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lib, Syntax, Parser, Eval
-  ghc-options:         -Wall
+  ghc-options:         -fwarn-incomplete-patterns
   build-depends:       base >= 4.7 && < 5
                      , text
                      , mtl
                      , parsec       >= 3.1 && < 3.2
                      , haskeline    >= 0.7 && < 0.8
                      , pretty       >= 1.1 && < 1.2
+  default-extensions:  NoMonomorphismRestriction,
+                       OverloadedStrings
+                       FlexibleContexts
   default-language:    Haskell2010
 
 executable calc
   hs-source-dirs:      app
   main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , calc
                      , text
-                     , mtl
+                     , mtl          >= 2.2 && < 2.3
                      , parsec       >= 3.1 && < 3.2
                      , haskeline    >= 0.7 && < 0.8
                      , pretty       >= 1.1 && < 1.2
+  default-extensions:  NoMonomorphismRestriction,
+                       OverloadedStrings
+                       FlexibleContexts
   default-language:    Haskell2010
 
 test-suite calc-test

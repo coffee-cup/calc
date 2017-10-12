@@ -6,5 +6,5 @@ data Expr
   | Mul Expr Expr
   | Div Expr Expr
   | Neg Expr
-  | LInt Integer
+  | LNum Double
   deriving (Eq, Show)

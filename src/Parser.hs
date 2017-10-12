@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Parser where
 
 import Syntax
@@ -47,15 +49,37 @@ table = [
   , [ binary "+" Add Ex.AssocLeft, binary "-" Sub Ex.AssocLeft ]
   ]
 
-natural :: Parser Expr
-natural = do
-  x <- read <$> many1 digit
+plus :: Parser String
+plus = string "+"
+
+minus :: Parser String
+minus = string "-"
+
+number :: Parser String
+number = many1 digit
+
+unsignedDouble :: Parser String
+unsignedDouble =
+      try (do {char '.'; n <- number; return ("0." ++ n)}) -- .123 -> 0.123
+  <|> try (do {n1 <- number; char '.'; n2 <- number; return (n1 ++ "." ++ n2)}) -- 1.23 -> 1.23
+  <|> try number -- 123 -> 123
+
+double :: Parser Double
+double = (do
+  option "" plus
+  m <- option "" minus
+  n <- unsignedDouble
+  return (read $ m ++ n)) <?> "number"
+
+numExpr :: Parser Expr
+numExpr = do
+  n <- double
   Tok.whiteSpace lexer
-  return (LInt x)
+  return (LNum n)
 
 term :: Parser Expr
 term =
-      natural
+      numExpr
   <|> parens expr
 
 binary :: String -> (a -> a -> a) -> Ex.Assoc -> Ex.Operator String () Identity a
