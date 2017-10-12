@@ -16,3 +16,4 @@ eval x = case x of
   Sub e1 e2 -> binaryOp e1 e2 (-)
   Mul e1 e2 -> binaryOp e1 e2 (*)
   Div e1 e2 -> binaryOp e1 e2 (/)
+  Exp e1 e2 -> binaryOp e1 e2 (**)

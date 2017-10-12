@@ -45,6 +45,7 @@ expr = Ex.buildExpressionParser table term
 table :: Ex.OperatorTable String () Identity Expr
 table = [
     [ prefix "-" Neg ]
+  , [ binary "^" Exp Ex.AssocRight ]
   , [ binary "*" Mul Ex.AssocLeft, binary "/" Div Ex.AssocLeft ]
   , [ binary "+" Add Ex.AssocLeft, binary "-" Sub Ex.AssocLeft ]
   ]
