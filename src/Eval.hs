@@ -2,27 +2,17 @@ module Eval where
 
 import Syntax
 
+binaryOp :: Expr -> Expr -> (Integer -> Integer -> Integer) -> Maybe Integer
+binaryOp e1 e2 op = do
+  n1 <- eval e1
+  n2 <- eval e2
+  Just (n1 `op` n2)
+
 eval :: Expr -> Maybe Integer
 eval x = case x of
-
   LInt t    -> Just t
-
-  Add e1 e2 -> do
-    n1 <- eval e1
-    n2 <- eval e2
-    Just (n1 + n2)
-
-  Sub e1 e2 -> do
-    n1 <- eval e1
-    n2 <- eval e2
-    Just (n1 - n2)
-
-  Mul e1 e2 -> do
-    n1 <- eval e1
-    n2 <- eval e2
-    Just (n1 * n2)
-
-  Div e1 e2 -> do
-    n1 <- eval e1
-    n2 <- eval e2
-    Just (n1 `div` n2)
+  Neg e     -> binaryOp e (LInt (-1)) (*)
+  Add e1 e2 -> binaryOp e1 e2 (+)
+  Sub e1 e2 -> binaryOp e1 e2 (-)
+  Mul e1 e2 -> binaryOp e1 e2 (*)
+  Div e1 e2 -> binaryOp e1 e2 div

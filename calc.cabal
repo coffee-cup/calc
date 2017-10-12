@@ -16,6 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lib, Syntax, Parser, Eval
+  ghc-options:         -Wall
   build-depends:       base >= 4.7 && < 5
                      , text
                      , mtl
@@ -27,7 +28,7 @@ library
 executable calc
   hs-source-dirs:      app
   main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:       base
                      , calc
                      , text
