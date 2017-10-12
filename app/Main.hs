@@ -14,7 +14,7 @@ process line = do
     Left err -> print err
     Right ex -> case eval ex of
       Nothing -> putStrLn "Cannot evaluate"
-      Just result -> putStrLn $ printf "%.2f" result
+      Just result -> putStrLn $ printf "%.3f" result
 
 main :: IO ()
 main = runInputT defaultSettings loop
